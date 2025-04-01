@@ -1,0 +1,13 @@
+
+@keyframes ball-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-ball-spin {
+  animation: ball-spin 2s infinite linear;
+}

@@ -2,7 +2,8 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { CricketBall, Home } from "lucide-react";
+import { Home } from "lucide-react";
+import { CricketBall } from "./icons/CricketIcons";
 
 const NotFoundPage = () => {
   const navigate = useNavigate();

@@ -2,7 +2,7 @@
 import { useCricket } from "../context/CricketContext";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { CricketBall } from "lucide-react";
+import { CricketBall } from "./icons/CricketIcons";
 
 const ScoreDisplay = () => {
   const { match, getBattingTeam, getBowlingTeam, getCurrentInningsData } = useCricket();
@@ -94,7 +94,7 @@ const ScoreDisplay = () => {
               
               // Determine the color and content of the ball
               let bgColor = "bg-gray-200";
-              let content = ball.runs;
+              let content: React.ReactNode = ball.runs;
               
               if (ball.isWicket) {
                 bgColor = "bg-cricket-wicket text-white";

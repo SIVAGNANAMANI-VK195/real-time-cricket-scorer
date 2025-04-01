@@ -1,69 +1,60 @@
 
+@import './styles/animations.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 140 30% 97%;
-    --foreground: 222 84% 4.9%;
-
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
     --card: 0 0% 100%;
-    --card-foreground: 222 84% 4.9%;
-
+    --card-foreground: 224 71.4% 4.1%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222 84% 4.9%;
-
-    --primary: 142 76% 36%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 79% 46%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 36 100% 50%;
-    --accent-foreground: 210 40% 98%;
-
+    --popover-foreground: 224 71.4% 4.1%;
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 142 76% 36%;
-
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 262.1 83.3% 57.8%;
     --radius: 0.5rem;
+    
+    /* Cricket specific colors */
+    --cricket-pitch: 147 63% 40%;
+    --cricket-boundary: 214 100% 60%;
+    --cricket-wicket: 0 72% 50%;
+    --cricket-accent: 33 100% 50%;
+    --cricket-sky: 199 89% 48%;
   }
 
   .dark {
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
-
-    --card: 222 47% 11%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222 47% 11%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 142 70% 44%;
-    --primary-foreground: 222 47% 11%;
-
-    --secondary: 210 70% 46%;
-    --secondary-foreground: 222 47% 11%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 36 92% 50%;
-    --accent-foreground: 222 47% 11%;
-
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 20% 98%;
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 263.4 70% 50.4%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 142 70% 44%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 263.4 70% 50.4%;
   }
 }
 
@@ -71,31 +62,45 @@
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
   }
 }
 
-/* Custom cricket utility classes */
-@layer components {
-  .cricket-ball {
-    @apply relative inline-flex items-center justify-center rounded-full bg-red-600 text-white;
+.score-display {
+  @apply text-4xl md:text-6xl font-bold;
+}
+
+/* Cricket specific styles */
+@layer utilities {
+  .bg-cricket-pitch {
+    @apply bg-[hsl(var(--cricket-pitch))];
   }
-  
-  .cricket-card {
-    @apply bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg;
+  .text-cricket-pitch {
+    @apply text-[hsl(var(--cricket-pitch))];
   }
-  
-  .score-display {
-    @apply font-bold text-3xl md:text-5xl tracking-tight;
+  .bg-cricket-boundary {
+    @apply bg-[hsl(var(--cricket-boundary))];
   }
-  
-  .cricket-stats-row {
-    @apply grid grid-cols-3 md:grid-cols-6 gap-2 text-sm text-center py-2 border-b border-gray-100;
+  .text-cricket-boundary {
+    @apply text-[hsl(var(--cricket-boundary))];
   }
-  
-  .cricket-button {
-    @apply px-4 py-2 rounded-full font-medium transition-all;
+  .bg-cricket-wicket {
+    @apply bg-[hsl(var(--cricket-wicket))];
+  }
+  .text-cricket-wicket {
+    @apply text-[hsl(var(--cricket-wicket))];
+  }
+  .bg-cricket-accent {
+    @apply bg-[hsl(var(--cricket-accent))];
+  }
+  .text-cricket-accent {
+    @apply text-[hsl(var(--cricket-accent))];
+  }
+  .bg-cricket-sky {
+    @apply bg-[hsl(var(--cricket-sky))];
+  }
+  .text-cricket-sky {
+    @apply text-[hsl(var(--cricket-sky))];
   }
 }

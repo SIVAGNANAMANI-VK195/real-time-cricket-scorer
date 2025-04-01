@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Match, Player, Team, ViewMode, BallData, TossDecision, BattingStats, BowlingStats } from "../types/cricket";
 import { v4 as uuidv4 } from "uuid";
@@ -45,6 +46,9 @@ interface CricketContextType {
     currentBall: number;
     battingStats: Record<string, BattingStats>;
     bowlingStats: Record<string, BowlingStats>;
+    striker: string | null;
+    nonStriker: string | null;
+    currentBowler: string | null;
   } | null;
   getPlayerById: (teamId: 'team1' | 'team2', playerId: string) => Player | undefined;
 }
@@ -302,7 +306,7 @@ export const CricketProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }
     
     // Create ball data
-    const newBall: BallData = {
+    const ballData: BallData = {
       id: uuidv4(),
       over: currentInnings.currentOver,
       ball: currentInnings.currentBall + 1,
@@ -366,12 +370,12 @@ export const CricketProvider: React.FC<{ children: React.ReactNode }> = ({ child
     
     // Determine if over is complete
     let newOver = currentInnings.currentOver;
-    let newBall = (currentInnings.currentBall + 1) % 6;
+    let nextBallNumber = (currentInnings.currentBall + 1) % 6;
     
     // If over is complete, increment over and reset ball count
-    if (newBall === 0) {
+    if (nextBallNumber === 0) {
       newOver += 1;
-      newBall = 0;
+      nextBallNumber = 0;
       
       // Update bowler's overs
       updatedBowlingStats[currentInnings.currentBowler] = {
@@ -404,9 +408,9 @@ export const CricketProvider: React.FC<{ children: React.ReactNode }> = ({ child
           ...prev.innings,
           [inningsKey]: {
             ...innings,
-            balls: [...innings.balls, newBall],
+            balls: [...innings.balls, ballData],
             currentOver: newOver,
-            currentBall: newBall,
+            currentBall: nextBallNumber,
             totalRuns: innings.totalRuns + runs,
             battingStats: updatedBattingStats,
             bowlingStats: updatedBowlingStats,
@@ -435,7 +439,7 @@ export const CricketProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }
     
     // Create ball data
-    const newBall: BallData = {
+    const ballData: BallData = {
       id: uuidv4(),
       over: currentInnings.currentOver,
       ball: extraType === 'wide' || extraType === 'no_ball' ? currentInnings.currentBall : currentInnings.currentBall + 1,
@@ -503,14 +507,14 @@ export const CricketProvider: React.FC<{ children: React.ReactNode }> = ({ child
     
     // Determine if over is complete for non-wide/no-ball extras
     let newOver = currentInnings.currentOver;
-    let newBall = extraType === 'wide' || extraType === 'no_ball' 
+    let nextBallNumber = extraType === 'wide' || extraType === 'no_ball' 
       ? currentInnings.currentBall 
       : (currentInnings.currentBall + 1) % 6;
     
     // If over is complete for non-wide/no-ball extras
-    if (extraType !== 'wide' && extraType !== 'no_ball' && newBall === 0) {
+    if (extraType !== 'wide' && extraType !== 'no_ball' && nextBallNumber === 0) {
       newOver += 1;
-      newBall = 0;
+      nextBallNumber = 0;
       
       // Update bowler's overs
       updatedBowlingStats[currentInnings.currentBowler] = {
@@ -539,9 +543,9 @@ export const CricketProvider: React.FC<{ children: React.ReactNode }> = ({ child
           ...prev.innings,
           [inningsKey]: {
             ...innings,
-            balls: [...innings.balls, newBall],
+            balls: [...innings.balls, ballData],
             currentOver: newOver,
-            currentBall: newBall,
+            currentBall: nextBallNumber,
             totalRuns: innings.totalRuns + runs,
             battingStats: updatedBattingStats,
             bowlingStats: updatedBowlingStats,
@@ -576,7 +580,7 @@ export const CricketProvider: React.FC<{ children: React.ReactNode }> = ({ child
     const outId = outPlayerId || currentInnings.striker;
     
     // Create ball data
-    const newBall: BallData = {
+    const ballData: BallData = {
       id: uuidv4(),
       over: currentInnings.currentOver,
       ball: currentInnings.currentBall + 1,
@@ -644,12 +648,12 @@ export const CricketProvider: React.FC<{ children: React.ReactNode }> = ({ child
     
     // Determine if over is complete
     let newOver = currentInnings.currentOver;
-    let newBall = (currentInnings.currentBall + 1) % 6;
+    let nextBallNumber = (currentInnings.currentBall + 1) % 6;
     
     // If over is complete
-    if (newBall === 0) {
+    if (nextBallNumber === 0) {
       newOver += 1;
-      newBall = 0;
+      nextBallNumber = 0;
       
       // Update bowler's overs
       updatedBowlingStats[currentInnings.currentBowler] = {
@@ -676,9 +680,9 @@ export const CricketProvider: React.FC<{ children: React.ReactNode }> = ({ child
           ...prev.innings,
           [inningsKey]: {
             ...innings,
-            balls: [...innings.balls, newBall],
+            balls: [...innings.balls, ballData],
             currentOver: newOver,
-            currentBall: newBall,
+            currentBall: nextBallNumber,
             wickets: innings.wickets + 1,
             battingStats: updatedBattingStats,
             bowlingStats: updatedBowlingStats,

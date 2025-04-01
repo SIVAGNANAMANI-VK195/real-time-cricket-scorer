@@ -1,7 +1,7 @@
 
 import { useCricket } from "../context/CricketContext";
 import { Separator } from "@/components/ui/separator";
-import { CricketBall } from "lucide-react";
+import { CricketBall } from "./icons/CricketIcons";
 
 const BattingStats = () => {
   const { match, getBattingTeam, getCurrentInningsData, getCurrentBatsmen, getPlayerById } = useCricket();

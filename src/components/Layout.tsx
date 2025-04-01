@@ -1,7 +1,7 @@
 
 import { ReactNode } from "react";
-import { Cricket } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Cricket } from "./icons/CricketIcons";
 
 type LayoutProps = {
   children: ReactNode;

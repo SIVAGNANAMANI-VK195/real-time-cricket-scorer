@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CricketBall, PlusCircle, Users2, Trophy } from "lucide-react";
+import { CricketBall } from "./icons/CricketIcons";
+import { PlusCircle, Users2, Trophy } from "lucide-react";
 import { toast } from "sonner";
 
 const Home = () => {
@@ -46,7 +47,7 @@ const Home = () => {
       <Card className="w-full max-w-md shadow-lg border-2 border-cricket-pitch/20">
         <CardHeader className="text-center">
           <div className="mx-auto mb-4 h-16 w-16 rounded-full bg-cricket-pitch flex items-center justify-center">
-            <CricketBall size={40} className="text-white" />
+            <CricketBall className="text-white" size={40} />
           </div>
           <CardTitle className="text-3xl font-bold">The Third Umpire</CardTitle>
           <CardDescription>Real-time cricket scoring app</CardDescription>
